@@ -78,7 +78,7 @@ public class UserController {
         return user;
     }
 
-//    @RequestMapping("del")
+//    @RequestMapping("/del")
 //    public int del(Integer blogId) {
 //
 //    }
