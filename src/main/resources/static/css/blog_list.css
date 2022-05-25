@@ -1,0 +1,55 @@
+/* 这个文件存放博客列表的样式 */
+
+.blog {
+    width: 100%;
+    padding: 10px;
+}
+
+.blog .title {
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.blog .data {
+    color: rgb(0,150,0);
+    text-align: center;
+    padding: 5px 0;
+}
+
+.blog .desc {
+    /* 首行缩进两个字符 */
+    text-indent: 2em;
+}
+
+.blog .detail {
+    display: block;
+    width: 130px;
+    height: 40px;
+
+    /* 设置文字居中 */
+    text-align: center;
+    line-height: 40px;
+
+    /* 设置按钮水平居中 */
+    margin: 15px auto;
+
+    /* 设置边框 */
+    border: 2px solid black;
+
+    /* 设置文字 */
+    text-decoration: none;
+    color: black;
+
+    /* 加上过渡效果 */
+    transition: all 1s;
+}
+
+/* 鼠标悬停的时候,变色 */
+.blog .detail:hover {
+    color: white;
+    background-color: cornflowerblue;
+}
+

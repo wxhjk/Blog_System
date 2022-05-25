@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客详情</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blog_detail.css">
+    <!-- 引入 editor.md 的依赖 -->
+    <link rel="stylesheet" href="editor.md/css/editormd.min.css"/>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<div class="nav">
+    <!-- log -->
+    <img src="image/下载.png" alt="">
+    <!-- 标题 -->
+    <span class="title">我的博客系统</span>
+    <!-- 空白的占位符 -->
+    <span class="spacer"></span>
+    <!-- 右边的几个链接 -->
+    <a href="blog_list.html">主页</a>
+    <a href="blog_edit.html">写博客</a>
+    <a href="logout">注销</a>
+</div>
+
+<div class="container">
+    <!-- 左侧信息 -->
+    <div class="left">
+
+        <div class="card">
+            <!-- 用户头像图片 -->
+            <img src="image/QQ截图20220402134344.png" alt="">
+            <!-- 用户名字 -->
+            <h3></h3>
+            <!-- github地址 -->
+            <a href="#">GitHub 地址</a>
+            <!-- 统计信息 -->
+            <div class="counter">
+                <span>文章</span>
+                <span>分类</span>
+            </div>
+            <div class="counter">
+                <span>2</span>
+                <span>1</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 右侧文章内容 -->
+    <div class="right">
+        <!-- 对应博客详情的整个部分 -->
+        <div class="blog-content">
+            <!-- 博客标题 -->
+            <h3></h3>
+            <!-- 博客发布时间 -->
+            <div class="data"></div>
+            <!-- 正文内容 -->
+            <div id="content" style="background-color: transparent;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 在页面加载的时候,给服务器发送 ajax 请求,获取到博客的详细内容,并在页面上进行显示 -->
+<script src="js/jquery.min.js"></script>
+<script src="editor.md/lib/marked.min.js"></script>
+<script src="editor.md/lib/prettify.min.js"></script>
+<script src="editor.md/editormd.js"></script>
+<script>
+    $.ajax({
+        method: 'GET',
+        url: 'blog-system/detail' + location.search,
+        success: function (data, status) {
+            buildBlog(data);
+        }
+        // error: function(data, status) {
+        //     // 如果用户未登录就会返回 403
+        //     // 就会重定向到 login.html
+        //     location.assign('login.html');
+        // }
+    });
+
+    // 根据服务器返回的 JSON 对象,来构造出页面的内容
+    function buildBlog(blog) {
+        // 1. 更新博客的标题
+        let titleDiv = document.querySelector('.blog-content>h3');
+        titleDiv.innerHTML = blog.title;
+        // 2. 更新博客的日期
+        let dateDiv = document.querySelector('.blog-content>.data');
+        dateDiv.innerHTML = formatDate(blog.postTime);
+        // 3. 更新博客的内容
+        // let contentDiv = document.querySelector('.blog-content>.content');
+        // contentDiv.innerHTML = blog.content;
+        // 把得到的内容按照 markdown 的方式渲染,放到 id 为 content 的标签中
+        editormd.markdownToHTML('content', {markdown: blog.content});
+    }
+
+    function formatDate(timeStampMS) {
+        var date = new Date(timeStampMS);
+        var year = date.getFullYear(),
+            month = date.getMonth() + 1,//月份是从0开始的
+            day = date.getDate(),
+            hour = date.getHours(),
+            min = date.getMinutes(),
+            sec = date.getSeconds();
+        var newTime = year + '-' +
+            (month < 10 ? '0' + month : month) + '-' +
+            (day < 10 ? '0' + day : day) + ' ' +
+            (hour < 10 ? '0' + hour : hour) + ':' +
+            (min < 10 ? '0' + min : min) + ':' +
+            (sec < 10 ? '0' + sec : sec);
+
+        return newTime;
+    }
+
+    // 再加一个 ajax 来显示文章作者的信息,并显示
+    $.ajax({
+        url: 'blog-system/permission' + location.search, // 这里要给请求中填上 blogId 参数
+        method: 'GET',
+        success: function (data, status) {
+            changeUser(data);
+        }
+    })
+
+    function changeUser(user) {
+        let h3 = document.querySelector('.card>h3');
+        h3.innerHTML = user.username;
+
+        if (user.isYourBlog == 1) {
+            // 是自己的博客,就要显示一个删除按钮
+            let navDiv = document.querySelector('.nav');
+            let delButton = document.createElement('a');
+            delButton.innerHTML = '删除';
+            // 通过 a 标签的 href 只能触发 GET 请求,此处我们需要的是
+            // delete 请求, 就直接给 a 标签加上个点击回调,在这里面通过 ajax 来实现 delete 请求
+            delButton.href = '#';
+            delButton.onclick = deleteBlog;
+            navDiv.appendChild(delButton);
+        }
+
+        function deleteBlog() {
+            // 通过 ajax 来构造 delete 请求,完成删除操作
+            $.ajax({
+                url: 'blog-system/del' + location.search,
+                method: 'DELETE',
+                success: function (data, status) {
+                    location.assign('blog_list.html');
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

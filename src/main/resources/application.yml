@@ -1,0 +1,15 @@
+# 数据库连接设置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:13306/java_blog?characterEncoding=utf8&useSSL=false
+    username: root
+    password: abc123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/**Mapper.xml
+
+mybatis-plus:
+  configuration:
+    #设置当查询结果值为null时，同样映射该查询字段给map。
+    call-setters-on-nulls: true

@@ -1,0 +1,47 @@
+
+
+.blog-edit-container {
+    width: 1000px;
+    height: calc(100% - 50px);
+    margin: 0 auto;
+}
+
+.blog-edit-container .title {
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#title {
+    height: 40px;
+    width: 890px; 
+    font-size: 22px;
+    text-indent: 10px;
+    /* 去掉边框,轮廓线,并且加上圆角矩形 */
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    /* 加上半透明效果 */
+    background-color: rgba(255,255,255,0.7);
+}
+
+#submit {
+    height: 40px;
+    width: 100px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    background-color: orange;
+}
+
+#submit:active {
+    background-color: #666;
+}
+
+.blog-edit-container #editor {
+    border-radius: 10px;
+    opacity: 80%;
+}

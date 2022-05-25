@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blogsystem.mapper.UserMapper">
+    <resultMap id="BaseMap" type="com.example.blogsystem.model.Blog">
+        <!--  映射主键 (表中主键和程序实体类中的主键)-->
+        <id column="blogId" property="blogId"></id>
+        <!--  普通类的映射   -->
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="postTime" property="postTime"></result>
+        <result column="userId" property="userId"></result>
+    </resultMap>
+
+    <resultMap id="BaseMap2" type="com.example.blogsystem.model.User">
+        <!--  映射主键 (表中主键和程序实体类中的主键)-->
+        <id column="userId" property="userId"></id>
+        <!--  普通类的映射   -->
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+    </resultMap>
+
+    <select id="getAll" resultMap="BaseMap">
+        select *
+        from blog
+    </select>
+    <select id="getBlogById" resultMap="BaseMap">
+        select *
+        from blog
+        where blogId = #{blogId}
+    </select>
+    <select id="findPassword" resultMap="BaseMap2">
+        select *
+        from user
+        where username = #{username}
+    </select>
+    <select id="findUsername" resultType="java.lang.Integer">
+        select count(*)
+        from user
+        where username = #{username}
+    </select>
+
+</mapper>
