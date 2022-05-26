@@ -11,7 +11,7 @@
 
 .login-dialog {
     width: 400px;
-    height: 300px;
+    height: 370px;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
 }
@@ -49,16 +49,26 @@
     outline: none;
 }
 
+.login-content #password2 {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    text-indent: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
 .login-content #submit {
     width: 300px;
     height: 50px;
     color: white;
-    background-color:orange;
+    background-color: orange;
     border: none;
     font-size: 20px;
     border-radius: 10px;
 }
 
 .login-content #submit:active {
-    background-color:#666;
+    background-color: #666;
 }

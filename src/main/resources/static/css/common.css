@@ -23,7 +23,7 @@ html, body {
 .nav {
     width: 100%;
     height: 50px;
-    background-color: rgba(60,60,60,0.4);
+    background-color: rgba(60, 60, 60, 0.4);
     color: white;
     /* 让导航里的内容垂直居中 */
     display: flex;
@@ -63,7 +63,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     /* 临时设置个背景色,方便观察版心位置
     background-color: green; */
 }
@@ -81,7 +81,7 @@ html, body {
     width: 795px;
 
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
 
     overflow: auto;
 }
@@ -91,7 +91,7 @@ html, body {
     /* 设置内边距 */
     padding: 30px;
     border-radius: 10px;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* 用户头像 */

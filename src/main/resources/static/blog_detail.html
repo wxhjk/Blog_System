@@ -23,7 +23,7 @@
     <!-- 右边的几个链接 -->
     <a href="blog_list.html">主页</a>
     <a href="blog_edit.html">写博客</a>
-    <a href="logout">注销</a>
+    <a href="blog-system/logout">注销</a>
 </div>
 
 <div class="container">
@@ -32,7 +32,7 @@
 
         <div class="card">
             <!-- 用户头像图片 -->
-            <img src="image/QQ截图20220402134344.png" alt="">
+            <img src="image/avatar.png" alt="">
             <!-- 用户名字 -->
             <h3></h3>
             <!-- github地址 -->
@@ -43,7 +43,7 @@
                 <span>分类</span>
             </div>
             <div class="counter">
-                <span>2</span>
+                <span id="articleNum"></span>
                 <span>1</span>
             </div>
         </div>
@@ -73,7 +73,7 @@
 <script>
     $.ajax({
         method: 'GET',
-        url: 'blog-system/detail' + location.search,
+        url: 'blog-system/blog' + location.search,
         success: function (data, status) {
             buildBlog(data);
         }
@@ -119,18 +119,20 @@
 
     // 再加一个 ajax 来显示文章作者的信息,并显示
     $.ajax({
-        url: 'blog-system/permission' + location.search, // 这里要给请求中填上 blogId 参数
+        url: 'blog-system/user' + location.search, // 这里要给请求中填上 blogId 参数
         method: 'GET',
         success: function (data, status) {
             changeUser(data);
         }
     })
 
-    function changeUser(user) {
+    function changeUser(data) {
         let h3 = document.querySelector('.card>h3');
-        h3.innerHTML = user.username;
+        h3.innerHTML = data.user.username;
+        let span = document.querySelector('.card .counter #articleNum');
+        span.innerHTML = data.articleNum;
 
-        if (user.isYourBlog == 1) {
+        if (data.user.isYourBlog == 1) {
             // 是自己的博客,就要显示一个删除按钮
             let navDiv = document.querySelector('.nav');
             let delButton = document.createElement('a');
@@ -140,6 +142,11 @@
             delButton.href = '#';
             delButton.onclick = deleteBlog;
             navDiv.appendChild(delButton);
+            // 实现编辑功能
+            let updateButton = document.createElement('a');
+            updateButton.href = 'blog_update.html?blogId=' + data.blogId;
+            updateButton.innerHTML = '编辑';
+            navDiv.appendChild(updateButton);
         }
 
         function deleteBlog() {

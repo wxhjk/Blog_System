@@ -21,7 +21,7 @@
     <!-- 右边的几个链接 -->
     <a href="blog_list.html">主页</a>
     <a href="blog_edit.html">写博客</a>
-    <a href="logout">注销</a>
+    <a href="blog-system/logout">注销</a>
 </div>
 
 <!-- 版心 -->
@@ -31,7 +31,7 @@
 
         <div class="card">
             <!-- 用户头像图片 -->
-            <img src="image/QQ截图20220402134344.png" alt="">
+            <img src="image/avatar.png" alt="">
             <!-- 用户名字 -->
             <h3></h3>
             <!-- github地址 -->
@@ -42,7 +42,7 @@
                 <span>分类</span>
             </div>
             <div class="counter">
-                <span>2</span>
+                <span id="articleNum"></span>
                 <span>1</span>
             </div>
         </div>
@@ -107,7 +107,11 @@
             // 创建出 div.desc
             let descDiv = document.createElement('div');
             descDiv.className = 'desc';
-            descDiv.innerHTML = blog.content;
+            let content = blog.content;
+            if (content.length > 200) {
+                content = content.substring(0, 200) + "...";
+            }
+            descDiv.innerHTML = content;
             blogDiv.appendChild(descDiv);
             // 创建 a.detail
             let detailA = document.createElement('a');
@@ -148,9 +152,11 @@
         }
     })
 
-    function changeUser(user) {
+    function changeUser(data) {
         let h3 = document.querySelector('.card>h3');
-        h3.innerHTML = user.username;
+        h3.innerHTML = data.user.username;
+        let span = document.querySelector('.card .counter #articleNum');
+        span.innerHTML = data.articleNum;
     }
 </script>
 </body>

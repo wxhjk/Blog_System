@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博客编辑</title>
+    <title>博客更新</title>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/blog_edit.css">
 
@@ -45,6 +45,19 @@
 </div>
 
 <script>
+    $.ajax({
+        url: 'blog-system/getBlogTC' + location.search,
+        method: 'GET',
+        success: function (data, status) {
+            complete(data);
+        }
+    })
+
+    function complete(data) {
+        $('.blog-edit-container #title').val(data.title);
+        $('.blog-edit-container #content').val(data.content);
+    }
+
     function sub() {
         var title = $("#title").val();
         var content = $("#content").val();
@@ -53,18 +66,18 @@
             return;
         }
         $.ajax({
-            url: 'blog-system/submit',
+            url: 'blog-system/update' + location.search,
             method: 'POST',
             contentType: 'application/json;charset=utf-8',
             dataType: "json",
             data: JSON.stringify({"title": title, "content": content}),
             success: function (data, status) {
                 if (data.state == 1) {
-                    // 发布成功
-                    alert("发布成功! ")
+                    // 更新成功
+                    alert("更新成功! ")
                     location.assign("blog_list.html")
                 } else {
-                    // 发布失败
+                    // 更新失败
                     alert(data.msg);
                 }
             }

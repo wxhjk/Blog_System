@@ -16,4 +16,14 @@ public interface UserMapper {
     User findPassword(String username);
 
     Integer findUsername(String username);
+
+    int del(Integer blogId);
+
+    int add(User user);
+
+    int addBlog(Blog blog);
+
+    int getArticleNum(int userId);
+
+    int updateBlog(Integer blogId, String title, String content);
 }

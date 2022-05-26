@@ -19,25 +19,54 @@
         <result column="username" property="username"></result>
         <result column="password" property="password"></result>
     </resultMap>
+    <insert id="add">
+        insert into user(username, password)
+            value (#{username},#{password})
+    </insert>
+
+    <insert id="addBlog">
+        insert into blog(title, content, postTime, userId)
+            value (#{title},#{content},#{postTime},#{userId})
+    </insert>
+    <update id="updateBlog">
+        update blog
+        set title=#{title},
+            content=#{content}
+        where blogId = #{blogId}
+    </update>
+
+    <delete id="del">
+        delete
+        from blog
+        where blogId = #{blogId}
+    </delete>
 
     <select id="getAll" resultMap="BaseMap">
         select *
         from blog
     </select>
+
     <select id="getBlogById" resultMap="BaseMap">
         select *
         from blog
         where blogId = #{blogId}
     </select>
+
     <select id="findPassword" resultMap="BaseMap2">
         select *
         from user
         where username = #{username}
     </select>
+
     <select id="findUsername" resultType="java.lang.Integer">
         select count(*)
         from user
         where username = #{username}
+    </select>
+    <select id="getArticleNum" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where userId = #{userId}
     </select>
 
 </mapper>

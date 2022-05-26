@@ -29,4 +29,24 @@ public class UserService {
     public Integer findUsername(String username) {
         return userMapper.findUsername(username);
     }
+
+    public int del(Integer blogId) {
+        return userMapper.del(blogId);
+    }
+
+    public int add(User user) {
+        return userMapper.add(user);
+    }
+
+    public int addBlog(Blog blog) {
+        return userMapper.addBlog(blog);
+    }
+
+    public int getArticleNum(int userId) {
+        return userMapper.getArticleNum(userId);
+    }
+
+    public int updateBlog(Integer blogId, String title, String content) {
+        return userMapper.updateBlog(blogId, title, content);
+    }
 }

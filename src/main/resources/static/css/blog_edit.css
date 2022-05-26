@@ -1,5 +1,4 @@
 
-
 .blog-edit-container {
     width: 1000px;
     height: calc(100% - 50px);
@@ -17,7 +16,7 @@
 
 #title {
     height: 40px;
-    width: 890px; 
+    width: 890px;
     font-size: 22px;
     text-indent: 10px;
     /* 去掉边框,轮廓线,并且加上圆角矩形 */
@@ -25,7 +24,7 @@
     outline: none;
     border-radius: 10px;
     /* 加上半透明效果 */
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #submit {
