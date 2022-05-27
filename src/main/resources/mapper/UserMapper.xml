@@ -44,6 +44,7 @@
     <select id="getAll" resultMap="BaseMap">
         select *
         from blog
+        order by postTime desc
     </select>
 
     <select id="getBlogById" resultMap="BaseMap">
